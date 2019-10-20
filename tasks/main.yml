@@ -1,0 +1,62 @@
+---
+
+- name: Ensure {{ group }} group exists
+  group:
+    name: "{{ group }}"
+    state: present
+
+- name: Ensure {{ user }} user exists
+  user:
+    name: "{{ user }}"
+    shell: "{{ user_login }}"
+    group: "{{ user }}"
+
+- name: Download tar.gz file
+  get_url:
+    url: "{{ download_url }}"
+    dest: "{{ file_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: 0644
+
+- name: Extract tar.gz file
+  unarchive:
+    src: "{{ file_path }}"
+    dest: "{{ base_dir_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    remote_src: yes
+
+- name: Create a symlink of exporter binary
+  file:
+    src: "{{ folder_path }}/{{ exporter_type }}_exporter"
+    dest: "/usr/local/bin/{{ exporter_type }}_exporter"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    state: link
+    force: yes
+
+- name: Transfer template files to the remote host
+  template:
+    src: "{{ item.src_path }}"
+    dest: "{{ item.dest_path }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - { src_path: "{{ exporter_type }}-exporter.xml.j2", dest_path: "/etc/firewalld/services/{{ exporter_type }}-exporter.xml" }
+    - { src_path: "{{ exporter_type }}-exporter.service.j2", dest_path: "/etc/systemd/system/{{ exporter_type }}-exporter.service" }
+
+- name: Ensure firewalld is reloaded
+  service:
+    name: firewalld
+    state: reloaded
+    enabled: yes
+
+- name: Manage firewalld configuration
+  firewalld:
+    service: "{{ exporter_type }}-exporter"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  notify: "start and enable {{ exporter_type }}-exporter"

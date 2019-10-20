@@ -1,0 +1,17 @@
+galaxy_info:
+  author: bilalcaliskan
+  role_name: kafka_exporter
+  description: Kafka exporter setup role to provide monitoring over Prometheus
+  min_ansible_version: 2.6
+  galaxy_tags:
+    - configuration
+    - kafka_exporter
+    - monitoring
+  license: "license (BSD, MIT)"
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+dependencies: []

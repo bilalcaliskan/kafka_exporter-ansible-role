@@ -1,0 +1,8 @@
+---
+
+- name: start and enable {{ exporter_type }}-exporter
+  systemd:
+    name: "{{ exporter_type }}-exporter"
+    state: started
+    enabled: yes
+    daemon_reload: yes
