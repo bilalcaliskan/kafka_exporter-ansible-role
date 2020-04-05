@@ -1,5 +1,6 @@
 ---
 
-- src: bilalcaliskan.kafka
+# Get role from galaxy
+- name: bilalcaliskan.kafka
 
 ...
