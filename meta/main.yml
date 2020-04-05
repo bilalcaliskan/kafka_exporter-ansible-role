@@ -7,8 +7,9 @@ galaxy_info:
   min_ansible_version: 2.6
   galaxy_tags:
     - configuration
-    - kafka_exporter
-    - monitoring
+    - kafka
+    - exporter
+    - prometheus
   license: "license (BSD, MIT)"
   platforms:
     - name: EL

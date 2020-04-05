@@ -49,7 +49,7 @@
     dest: "{{ base_dir_path }}"
     owner: "{{ user }}"
     group: "{{ group }}"
-    remote_src: yes
+    remote_src: true
 
 - name: Create a symlink of kafka_exporter binary
   file:
