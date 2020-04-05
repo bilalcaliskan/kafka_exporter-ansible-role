@@ -1,11 +1,11 @@
 ---
 
-- name: start and enable {{ exporter_type }}-exporter
+- name: start and enable kafka-exporter
   systemd:
-    name: "{{ exporter_type }}-exporter"
+    name: kafka-exporter
     state: started
-    enabled: yes
-    daemon_reload: yes
+    enabled: true
+    daemon_reload: true
 
 - name: force systemd to reread configs
   systemd:
