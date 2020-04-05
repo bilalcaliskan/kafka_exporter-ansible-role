@@ -1,0 +1,12 @@
+---
+
+- name: Verify play
+  hosts: all
+  tasks:
+    - name: Ensure kafka-exporter port is reachable
+      wait_for:
+        host: localhost
+        port: 9308
+        timeout: 5
+
+...

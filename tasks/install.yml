@@ -1,0 +1,85 @@
+---
+
+- name: Get service facts
+  service_facts:
+
+- name: Set fact before installation
+  set_fact:
+    kafka_exporter_installed: false
+  when: ansible_facts.services["kafka-exporter.service"] is not defined
+
+- name: Ensure {{ group }} group exists
+  group:
+    name: "{{ group }}"
+    state: present
+
+- name: Ensure {{ user }} user exists
+  user:
+    name: "{{ user }}"
+    shell: /sbin/nologin
+    group: "{{ user }}"
+
+- name: Ensure required packages are installed
+  package:
+    name: "{{ required_packages }}"
+    state: present
+
+- name: Check if tar file exists
+  stat:
+    path: "{{ file_path }}"
+  register: file_stat_result
+
+- name: Download tar.gz file
+  get_url:
+    url: "{{ download_url }}"
+    dest: "{{ base_dir_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    mode: 0644
+  when: not file_stat_result.stat.exists
+
+- name: Check if directory exists
+  stat:
+    path: "{{ folder_path }}"
+  register: directory_stat_result
+
+- name: Extract tar.gz file
+  unarchive:
+    src: "{{ file_path }}"
+    dest: "{{ base_dir_path }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    remote_src: yes
+
+- name: Create a symlink of kafka_exporter binary
+  file:
+    src: "{{ folder_path }}/kafka_exporter"
+    dest: "/usr/local/bin/kafka_exporter"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+    state: link
+
+- name: Transfer template files to the remote host
+  template:
+    src: kafka-exporter.service.j2
+    dest: /etc/systemd/system/kafka-exporter.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: start and enable kafka-exporter
+
+- name: Ensure firewalld is started and enabled
+  service:
+    name: firewalld
+    state: started
+    enabled: true
+  changed_when: false
+
+- name: Manage firewalld configuration
+  firewalld:
+    port: "{{ exporter_port }}/tcp"
+    permanent: true
+    state: enabled
+    immediate: true
+
+...

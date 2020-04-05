@@ -1,13 +1,16 @@
 ---
 
+install_kafka_exporter: true
 kafka_port: 9092
 exporter_port: 9308
-exporter_type: kafka
 version: 1.2.0
 download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
 base_dir_path: /opt
-folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64"
 file_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64.tar.gz"
-user: prometheus
-group: prometheus
-user_login: /sbin/nologin
+folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64"
+user: kafka-exporter
+group: kafka-exporter
+required_packages:
+  - firewalld
+
+...

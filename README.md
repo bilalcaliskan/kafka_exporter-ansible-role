@@ -1,31 +1,21 @@
-## Role Name
+## Kafka Exporter Ansible Role
 
-Installs and configures Kafka Exporter daemon on RHEL/CentOS 7/8 servers.
+[![Build Status](https://travis-ci.org/bilalcaliskan/kafka_exporter-ansible-role.svg?branch=master)](https://travis-ci.org/bilalcaliskan/kafka_exporter-ansible-role)
+
+Installs and configures kafka-exporter to expose Kafka metrics to Prometheus on RHEL/CentOS 7/8 instances.
 
 ## Requirements
 
-Requires a running kafka service on the same host; note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
+No special requirements; note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
 
       - hosts: all
+        become: true
         roles:
-          - role: bilalcaliskan.node_exporter
-            become: yes
+          - role: bilalcaliskan.kafka_exporter
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
-
-        kafka_port: 9092
-        exporter_port: 9308
-        exporter_type: kafka
-        version: 1.2.0
-        download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ exporter_version }}/kafka_exporter-{{ exporter_version }}.linux-amd64.tar.gz"
-        base_dir_path: /opt
-        folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ exporter_version }}.linux-amd64"
-        file_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ exporter_version }}.linux-amd64.tar.gz"
-        user: prometheus
-        group: prometheus
-        user_login: /sbin/nologin
+See the default values in 'defaults/main.yml'. You can overwrite them in 'vars/main.yml' if neccessary.
 
 ## Dependencies
 
@@ -34,9 +24,11 @@ None
 ## Example Playbook
 
       - hosts: all
-        become: yes
+        become: true
+        vars_files:
+          - vars/main.yml
         roles:
-          - { role: bilalcaliskan.kafka_exporter }
+          - role: bilalcaliskan.kafka_exporter
 
 *Inside `vars/main.yml`*:
 
@@ -44,13 +36,26 @@ None
         exporter_port: 9308
         exporter_type: kafka
         version: 1.2.0
-        download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ exporter_version }}/kafka_exporter-{{ exporter_version }}.linux-amd64.tar.gz"
+        download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
         base_dir_path: /opt
-        folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ exporter_version }}.linux-amd64"
-        file_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ exporter_version }}.linux-amd64.tar.gz"
-        user: prometheus
-        group: prometheus
+        folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64"
+        file_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64.tar.gz"
+        user: kafka-exporter
+        group: kafka-exporter
         user_login: /sbin/nologin
+
+## Playbook for uninstall
+
+      - hosts: all
+        become: true
+        vars_files:
+          - vars/main.yml
+        roles:
+          - role: bilalcaliskan.kafka_exporter
+
+*Inside `vars/main.yml`*:
+
+        install_kafka_exporter: false
 
 ## License
 

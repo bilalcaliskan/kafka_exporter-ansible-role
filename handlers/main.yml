@@ -6,3 +6,9 @@
     state: started
     enabled: yes
     daemon_reload: yes
+
+- name: force systemd to reread configs
+  systemd:
+    daemon_reload: true
+
+...

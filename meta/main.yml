@@ -1,3 +1,5 @@
+---
+
 galaxy_info:
   author: bilalcaliskan
   role_name: kafka_exporter
@@ -15,3 +17,5 @@ galaxy_info:
         - 8
 
 dependencies: []
+
+...
