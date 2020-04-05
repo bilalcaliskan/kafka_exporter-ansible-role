@@ -1,0 +1,17 @@
+
+[Unit]
+Description=Kafka Exporter for Prometheus
+Wants=network-online.target kafka.service
+After=network-online.target kafka.service
+
+[Service]
+Type=simple
+User={{ user }}
+Group={{ group }}
+ExecReload=/bin/kill -HUP
+ExecStart=/usr/local/bin/kafka_exporter --kafka.server={{ inventory_hostname }}:{{ kafka_port }}
+SyslogIdentifier=kafka_exporter
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

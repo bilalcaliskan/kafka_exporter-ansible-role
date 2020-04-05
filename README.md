@@ -6,11 +6,23 @@ Installs and configures kafka-exporter to expose Kafka metrics to Prometheus on 
 
 ## Requirements
 
-No special requirements; note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role in your playbook like:
+This role requires a Running Kafka process on the same server. You can set up a Kafka cluster using bilalcaliskan.kafka role.
+Also note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role
+in your playbook like:
+
+*If you have a running Kafka process on the same server*:
 
       - hosts: all
         become: true
         roles:
+          - role: bilalcaliskan.kafka_exporter
+
+*If you do not have a running Kafka process on the same server*:
+
+      - hosts: all
+        become: true
+        roles:
+          - role: bilalcaliskan.kafka
           - role: bilalcaliskan.kafka_exporter
 
 ## Role Variables
