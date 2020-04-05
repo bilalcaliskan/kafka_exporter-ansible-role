@@ -9,8 +9,8 @@ Type=simple
 User={{ user }}
 Group={{ group }}
 ExecReload=/bin/kill -HUP
-ExecStart=/usr/local/bin/kafka_exporter --kafka.server={{ inventory_hostname }}:{{ kafka_port }}
-SyslogIdentifier=kafka_exporter
+ExecStart=/usr/local/bin/kafka_exporter --kafka.server=localhost:{{ kafka_port }} --web.listen-address=:{{ exporter_port }}
+SyslogIdentifier=kafka-exporter
 Restart=always
 
 [Install]

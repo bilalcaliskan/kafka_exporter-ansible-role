@@ -3,6 +3,18 @@
 - name: Verify play
   hosts: all
   tasks:
+    - name: Ensure Zookeeper client port is reachable
+      wait_for:
+        host: localhost
+        port: 2181
+        timeout: 5
+
+    - name: Ensure kafka port is reachable
+      wait_for:
+        host: localhost
+        port: 9308
+        timeout: 5
+
     - name: Ensure kafka-exporter port is reachable
       wait_for:
         host: localhost
