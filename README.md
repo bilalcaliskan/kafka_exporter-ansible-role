@@ -1,6 +1,6 @@
 ## Kafka Exporter Ansible Role
 
-[![Build Status](https://travis-ci.org/bilalcaliskan/kafka_exporter-ansible-role.svg?branch=master)](https://travis-ci.org/bilalcaliskan/kafka_exporter-ansible-role)
+[![Build Status](https://travis-ci.com/bilalcaliskan/kafka_exporter-ansible-role.svg?branch=master)](https://travis-ci.com/bilalcaliskan/kafka_exporter-ansible-role)
 
 Installs and configures kafka-exporter to expose Kafka metrics to Prometheus on RHEL/CentOS 7/8 instances.
 
