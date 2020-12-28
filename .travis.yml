@@ -12,7 +12,7 @@ env:
     - MOLECULE_DISTRO: centos8
 
 install:
-  - pip install molecule yamllint ansible-lint docker
+  - pip install molecule yamllint ansible-lint docker molecule-docker
 
 before_script:
   - cd ../
