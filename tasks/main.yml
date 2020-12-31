@@ -7,5 +7,3 @@
 - name: Include uninstall.yml file
   include_tasks: uninstall.yml
   when: not (install_kafka_exporter | bool)
-
-...
