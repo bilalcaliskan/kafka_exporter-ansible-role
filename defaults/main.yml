@@ -2,6 +2,8 @@
 
 install_kafka_exporter: true
 kafka_port: 9092
+kafka_bind_localhost: true
+start_firewalld: true
 exporter_port: 9308
 version: 1.2.0
 download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
@@ -12,5 +14,3 @@ user: kafka-exporter
 group: kafka-exporter
 required_packages:
   - firewalld
-
-...

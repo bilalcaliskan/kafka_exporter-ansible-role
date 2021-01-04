@@ -68,18 +68,19 @@
     mode: 0644
   notify: start and enable kafka-exporter
 
-- name: Ensure firewalld is started and enabled
-  service:
-    name: firewalld
-    state: started
-    enabled: true
-  changed_when: false
+- name: Firewalld related block
+  block:
+  - name: Ensure firewalld is started and enabled
+    service:
+      name: firewalld
+      state: started
+      enabled: true
+    changed_when: false
 
-- name: Manage firewalld configuration
-  firewalld:
-    port: "{{ exporter_port }}/tcp"
-    permanent: true
-    state: enabled
-    immediate: true
-
-...
+  - name: Manage firewalld configuration
+    firewalld:
+      port: "{{ exporter_port }}/tcp"
+      permanent: true
+      state: enabled
+      immediate: true
+  when: (start_firewalld | bool)

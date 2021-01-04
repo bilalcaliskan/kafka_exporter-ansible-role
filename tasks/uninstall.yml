@@ -22,6 +22,7 @@
         immediate: true
         permanent: true
         state: disabled
+      when: (start_firewalld | bool)
 
     - name: Remove kafka-exporter related files and directories
       file:
@@ -42,5 +43,3 @@
       set_fact:
         kafka_exporter_installed: false
   when: ansible_facts.services["kafka-exporter.service"] is defined
-
-...

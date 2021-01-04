@@ -20,5 +20,3 @@
         host: localhost
         port: 9308
         timeout: 5
-
-...
