@@ -8,7 +8,7 @@
     kafka_exporter_installed: true
   when: ansible_facts.services["kafka-exporter.service"] is defined
 
-- name: Remove kafka-exporter
+- name: Remove kafka-exporter block
   block:
     - name: Ensure kafka-exporter service stopped and disabled
       service:
@@ -22,7 +22,7 @@
         immediate: true
         permanent: true
         state: disabled
-      when: (start_firewalld | bool)
+      when: ansible_facts.services["firewalld.service"].state == "running"
 
     - name: Remove kafka-exporter related files and directories
       file:

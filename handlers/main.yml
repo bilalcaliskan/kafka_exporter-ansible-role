@@ -1,12 +1,12 @@
 ---
 
+- name: force systemd to reread configs
+  systemd:
+    daemon_reload: true
+
 - name: start and enable kafka-exporter
   systemd:
     name: kafka-exporter
     state: started
     enabled: true
-    daemon_reload: true
-
-- name: force systemd to reread configs
-  systemd:
     daemon_reload: true
