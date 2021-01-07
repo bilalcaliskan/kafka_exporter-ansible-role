@@ -4,71 +4,70 @@
 
 Installs and configures kafka-exporter to expose Kafka metrics to Prometheus on RHEL/CentOS 7/8 instances.
 
-## Requirements
+### Requirements
 
-This role requires a Running Kafka process on the same server. You can set up a Kafka cluster using bilalcaliskan.kafka role.
-Also note that this role requires root access, so either run it in a playbook with a global `become: yes`, or invoke the role
-in your playbook like:
+This role requires a Running Kafka process on the same server. You can set up a Kafka cluster using [bilalcaliskan.kafka](https://galaxy.ansible.com/bilalcaliskan/kafka) role.
+Also note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook like:
 
 *If you have a running Kafka process on the same server*:
+```yaml
+- hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.kafka_exporter
+```
 
-      - hosts: all
-        become: true
-        roles:
-          - role: bilalcaliskan.kafka_exporter
+*If you do not have a running Kafka process on the same server, it will setup Kafka, Zookeeper
+and Kafka exporter sequentially*:
+```yaml
+- hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.kafka
+    - role: bilalcaliskan.kafka_exporter
+```
 
-*If you do not have a running Kafka process on the same server*:
+### Role Variables
+See the default values in [defaults/main.yml](defaults/main.yml). You can overwrite them in [vars/main.yml](vars/main.yml) if neccessary or you can set them while running playbook.
 
-      - hosts: all
-        become: true
-        roles:
-          - role: bilalcaliskan.kafka
-          - role: bilalcaliskan.kafka_exporter
+> Please note that this role will ensure that `firewalld` systemd service on your servers are started and enabled. If your `firewalld` services are stopped and disabled, please modify below variable as false when running playbook:  
+> ```yaml  
+> start_firewalld: false
 
-## Role Variables
-
-See the default values in 'defaults/main.yml'. You can overwrite them in 'vars/main.yml' if neccessary.
-
-## Dependencies
+### Dependencies
 
 None
 
-## Example Playbook
+### Example Playbook File For Installation
 
-      - hosts: all
-        become: true
-        vars_files:
-          - vars/main.yml
-        roles:
-          - role: bilalcaliskan.kafka_exporter
-
-*Inside `vars/main.yml`*:
-
-        kafka_port: 9092
-        exporter_port: 9308
-        exporter_type: kafka
+```yaml
+- hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.kafka_exporter
+      vars:
+        kafka_port: true
+        install_kafka_exporter: true
+        kafka_version: 123.123
         version: 1.2.0
-        download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
-        base_dir_path: /opt
-        folder_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64"
-        file_path: "{{ base_dir_path }}/{{ exporter_type }}_exporter-{{ version }}.linux-amd64.tar.gz"
-        user: kafka-exporter
-        group: kafka-exporter
-        user_login: /sbin/nologin
+```
 
-## Playbook for uninstall
+You can also override default variables inside [vars/main.yml](vars/main.yml)*:
+```yaml
+version: 123.123
+```
 
-      - hosts: all
-        become: true
-        vars_files:
-          - vars/main.yml
-        roles:
-          - role: bilalcaliskan.kafka_exporter
+### Example Playbook File For `Ununinstallation`
 
-*Inside `vars/main.yml`*:
-
+```yaml
+- hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.kafka_exporter
+      vars:
         install_kafka_exporter: false
+```
 
-## License
+### License
 
 MIT / BSD
