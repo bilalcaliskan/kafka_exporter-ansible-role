@@ -46,7 +46,7 @@ None
   roles:
     - role: bilalcaliskan.kafka_exporter
       vars:
-        kafka_port: true
+        kafka_port: 9092
         install_kafka_exporter: true
         kafka_version: 123.123
         version: 1.2.0
