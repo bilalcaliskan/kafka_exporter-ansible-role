@@ -4,9 +4,6 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint: |
-  yamllint .
-  ansible-lint
 platforms:
   - name: instance
     image: "bilalcaliskan/molecule-${MOLECULE_DISTRO:-centos7}:latest"
@@ -19,17 +16,3 @@ provisioner:
   name: ansible
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-scenario:
-  name: default
-  test_sequence:
-    - lint
-    - destroy
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    - side_effect
-    - verify
-    - destroy
