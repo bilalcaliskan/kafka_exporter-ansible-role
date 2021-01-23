@@ -17,6 +17,7 @@ Also note that this role requires root access, so either run it in a playbook wi
     - role: bilalcaliskan.kafka_exporter
 ```
 
+
 *If you do not have a running Kafka process on the same server, it will setup Kafka, Zookeeper
 and Kafka exporter sequentially*:
 ```yaml
