@@ -1,13 +1,10 @@
 ---
 
-name: CI
+name: PR
 on:
   pull_request:
-  push:
-    branches:
-      - master
-# schedule:
-#  - cron: "0 6 * * 3"
+  # schedule:
+  #  - cron: "0 6 * * 3"
 
 defaults:
   run:
@@ -44,7 +41,6 @@ jobs:
         distro:
           - centos7
           - centos8
-
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
@@ -65,17 +61,3 @@ jobs:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ matrix.distro }}
-
-  release:
-    name: Release
-    needs:
-      - molecule
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: galaxy
-        uses: robertdebock/galaxy-action@1.1.0
-        with:
-          galaxy_api_key: ${{ secrets.GALAXY_API_KEY }}
-          path: 'bilalcaliskan.kafka_exporter'
