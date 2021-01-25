@@ -12,7 +12,6 @@ defaults:
 
 jobs:
   lint:
-    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -34,7 +33,6 @@ jobs:
           ansible-lint
 
   molecule:
-    name: Molecule
     runs-on: ubuntu-latest
     strategy:
       matrix:
