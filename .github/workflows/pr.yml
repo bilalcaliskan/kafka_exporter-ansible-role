@@ -39,6 +39,9 @@ jobs:
         distro:
           - centos7
           - centos8
+          - ubuntu1604
+          - ubuntu1804
+          - ubuntu2004
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2

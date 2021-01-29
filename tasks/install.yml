@@ -19,6 +19,12 @@
     shell: /sbin/nologin
     group: "{{ user }}"
 
+- name: Update cache on Debian based hosts
+  apt:
+    update_cache: true
+  when: ansible_facts['os_family'] == "Debian"
+  changed_when: false
+
 - name: Ensure required packages are installed
   package:
     name: "{{ required_packages }}"
@@ -67,7 +73,6 @@
     group: root
     mode: 0640
   notify:
-    - force systemd to reread configs
     - start and enable kafka-exporter
 
 - name: Stop firewalld if desired by user
