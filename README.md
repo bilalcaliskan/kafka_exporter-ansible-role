@@ -48,6 +48,7 @@ None
     - role: bilalcaliskan.kafka_exporter
       vars:
         kafka_port: 9092
+        exporter_port: 9308
         install_kafka_exporter: true
         kafka_version: 123.123
         version: 1.2.0
@@ -58,7 +59,7 @@ You can also override default variables inside [vars/main.yml](vars/main.yml)*:
 version: 123.123
 ```
 
-### Example Playbook File For `Ununinstallation`
+### Example Playbook File For Uninstallation
 
 ```yaml
 - hosts: all
