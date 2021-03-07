@@ -6,6 +6,11 @@ Installs and configures kafka-exporter to expose Kafka metrics to Prometheus.
 
 ### Requirements
 
+This role requires minimum Ansible version 2.4 and maximum Ansible version 2.9. You can install suggested version with pip:
+```
+$ pip install "ansible==2.9.16"
+```
+
 This role requires a Running Kafka process on the same server. You can set up a Kafka cluster using [bilalcaliskan.kafka](https://galaxy.ansible.com/bilalcaliskan/kafka) role.
 Also note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook like:
 
