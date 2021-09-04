@@ -33,4 +33,3 @@ repos:
         name: ansible-lint
         language: system
         entry: ansible-lint .
-        stages: [commit-msg]
