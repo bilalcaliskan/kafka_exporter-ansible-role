@@ -19,6 +19,12 @@
     shell: /sbin/nologin
     group: "{{ user }}"
 
+- name: Ensure {{ user }} user exists
+  user:
+    name: "{{ user }}"
+    shell: /sbin/nologin
+    group: "{{ user }}"
+
 - name: Update cache on Debian based hosts
   apt:
     update_cache: true
