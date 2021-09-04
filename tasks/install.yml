@@ -8,7 +8,7 @@
     kafka_exporter_installed: false
   when: ansible_facts.services["kafka-exporter.service"] is not defined
 
-- name: Ensure {{ group }} group exists
+- name: Ensure {{ group }} group existss
   group:
     name: "{{ group }}"
     state: present
