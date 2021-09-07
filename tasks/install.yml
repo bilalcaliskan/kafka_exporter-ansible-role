@@ -3,11 +3,6 @@
 - name: Get service facts
   service_facts:
 
-- name: Set fact before installation
-  set_fact:
-    kafka_exporter_installed: false
-  when: ansible_facts.services["kafka-exporter.service"] is not defined
-
 - name: Ensure {{ group }} group exists
   group:
     name: "{{ group }}"

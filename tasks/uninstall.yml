@@ -3,11 +3,6 @@
 - name: Get service facts
   service_facts:
 
-- name: Check if kafka-exporter is installed
-  set_fact:
-    kafka_exporter_installed: true
-  when: ansible_facts.services["kafka-exporter.service"] is defined
-
 - name: Remove kafka-exporter block
   block:
     - name: Ensure kafka-exporter service stopped and disabled
@@ -38,8 +33,4 @@
       user:
         name: "{{ user }}"
         state: absent
-
-    - name: Set fact after uninstallation
-      set_fact:
-        kafka_exporter_installed: false
   when: ansible_facts.services["kafka-exporter.service"] is defined
