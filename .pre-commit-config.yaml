@@ -18,11 +18,6 @@ repos:
     rev: v1.26.2
     hooks:
       - id: yamllint
-        exclude: >
-          (?x)^(
-            examples/playbooks/templates/.*|
-            examples/other/some.j2.yaml
-          )$
         files: \.(yaml|yml)$
         types: [file, yaml]
         entry: yamllint --strict
@@ -32,4 +27,5 @@ repos:
       - id: ansible-lint
         name: ansible-lint
         language: system
-        entry: ansible-lint .
+        entry: ansible-lint
+        files: \.x$

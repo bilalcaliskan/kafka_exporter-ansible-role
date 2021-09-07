@@ -1,10 +1,10 @@
-## Kafka Exporter Ansible Role
+# Kafka Exporter Ansible Role
 
 [![CI](https://github.com/bilalcaliskan/kafka_exporter-ansible-role/workflows/CI/badge.svg?event=push)](https://github.com/bilalcaliskan/kafka_exporter-ansible-role/actions?query=workflow%3ACI)
 
 Installs and configures kafka-exporter to expose Kafka metrics to Prometheus.
 
-### Requirements
+## Requirements
 
 This role requires minimum Ansible version 2.4 and maximum Ansible version 2.9. You can install suggested version with pip:
 ```
@@ -33,18 +33,19 @@ and Kafka exporter sequentially*:
     - role: bilalcaliskan.kafka_exporter
 ```
 
-### Role Variables
+## Role Variables
 See the default values in [defaults/main.yml](defaults/main.yml). You can overwrite them in [vars/main.yml](vars/main.yml) if neccessary or you can set them while running playbook.
 
-> Please note that this role will ensure that `firewalld` systemd service on your servers are started and enabled by default. If you want to stop and disable `firewalld` service, please modify below variable as false when running playbook:  
-> ```yaml  
+> Please note that this role will ensure that `firewalld` systemd service on your servers are started and enabled by default. If you want to stop and disable `firewalld` service, please modify below variable as false when running playbook:
+> ```yaml
 > firewalld_enabled: false
 
-### Dependencies
+## Dependencies
 
 None
 
-### Example Playbook File For Installation
+## Examples
+### Installation
 
 ```yaml
 - hosts: all
@@ -64,7 +65,7 @@ You can also override default variables inside [vars/main.yml](vars/main.yml)*:
 version: 123.123
 ```
 
-### Example Playbook File For Uninstallation
+### Uninstallation
 
 ```yaml
 - hosts: all
@@ -75,6 +76,12 @@ version: 123.123
         install_kafka_exporter: false
 ```
 
-### License
+## Development
+This project requires below tools while developing:
+- [Ansible 2.4 or higher](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+- [pre-commit](https://pre-commit.com/)
+- [ansible-lint](https://ansible-lint.readthedocs.io/en/latest/installing.html#using-pip-or-pipx) - required by [pre-commit](https://pre-commit.com/)
+
+## License
 
 MIT / BSD
