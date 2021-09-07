@@ -27,4 +27,4 @@ repos:
       - id: ansible-lint
         name: ansible-lint
         language: system
-        entry: ansible-lint
+        entry: bash -c 'ansible-lint'

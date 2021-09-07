@@ -2,7 +2,9 @@
 
 [![CI](https://github.com/bilalcaliskan/kafka_exporter-ansible-role/workflows/CI/badge.svg?event=push)](https://github.com/bilalcaliskan/kafka_exporter-ansible-role/actions?query=workflow%3ACI)
 
-Installs and configures kafka-exporter to expose Kafka metrics to Prometheus.
+Installs and configures [kafka-exporter](https://github.com/danielqsj/kafka_exporter) on Redhat/Debian based hosts.
+
+If you need also Kafka, please refer to [bilalcaliskan.kafka](https://github.com/bilalcaliskan/kafka-ansible-role).
 
 ## Requirements
 
@@ -12,26 +14,8 @@ $ pip install "ansible==2.9.16"
 ```
 
 This role requires a Running Kafka process on the same server. You can set up a Kafka cluster using [bilalcaliskan.kafka](https://galaxy.ansible.com/bilalcaliskan/kafka) role.
-Also note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook like:
+Also note that this role requires root access, so either run it in a playbook with a global `become: true`, or invoke the role in your playbook.
 
-*If you have a running Kafka process on the same server*:
-```yaml
-- hosts: all
-  become: true
-  roles:
-    - role: bilalcaliskan.kafka_exporter
-```
-
-
-*If you do not have a running Kafka process on the same server, it will setup Kafka, Zookeeper
-and Kafka exporter sequentially*:
-```yaml
-- hosts: all
-  become: true
-  roles:
-    - role: bilalcaliskan.kafka
-    - role: bilalcaliskan.kafka_exporter
-```
 
 ## Role Variables
 See the default values in [defaults/main.yml](defaults/main.yml). You can overwrite them in [vars/main.yml](vars/main.yml) if neccessary or you can set them while running playbook.
@@ -45,6 +29,14 @@ See the default values in [defaults/main.yml](defaults/main.yml). You can overwr
 None
 
 ## Examples
+### Inventory
+```
+[all]
+broker01.example.com
+broker02.example.com
+broker03.example.com
+```
+
 ### Installation
 
 ```yaml
@@ -58,11 +50,6 @@ None
         install_kafka_exporter: true
         kafka_version: 123.123
         version: 1.2.0
-```
-
-You can also override default variables inside [vars/main.yml](vars/main.yml)*:
-```yaml
-version: 123.123
 ```
 
 ### Uninstallation
@@ -81,7 +68,8 @@ This project requires below tools while developing:
 - [Ansible 2.4 or higher](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - [pre-commit](https://pre-commit.com/)
 - [ansible-lint](https://ansible-lint.readthedocs.io/en/latest/installing.html#using-pip-or-pipx) - required by [pre-commit](https://pre-commit.com/)
+- [Bash shell](https://www.gnu.org/software/bash/) - required by [pre-commit](https://pre-commit.com/)
 
 ## License
 
-MIT / BSD
+Apache License 2.0
