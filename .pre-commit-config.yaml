@@ -2,7 +2,7 @@
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.0.1
     hooks:
       - id: check-yaml
       - id: check-json
@@ -15,7 +15,7 @@ repos:
       - id: check-merge-conflict
 
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.26.2
+    rev: v1.26.3
     hooks:
       - id: yamllint
         files: \.(yaml|yml)$
@@ -28,4 +28,3 @@ repos:
         name: ansible-lint
         language: system
         entry: ansible-lint
-        files: \.x$
