@@ -2,7 +2,6 @@
 - name: Converge
   hosts: all
   become: true
-  ignore_errors: true
   roles:
     - role: bilalcaliskan.kafka
     - role: bilalcaliskan.kafka_exporter
