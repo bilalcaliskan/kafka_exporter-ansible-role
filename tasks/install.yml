@@ -1,5 +1,4 @@
 ---
-
 - name: Get service facts
   service_facts:
 
@@ -75,13 +74,6 @@
     mode: 0640
   notify:
     - start and enable kafka-exporter
-
-- name: Stop firewalld if desired by user
-  service:
-    name: firewalld
-    state: stopped
-    enabled: false
-  when: not (firewalld_enabled | bool)
 
 - name: Firewalld related block
   block:

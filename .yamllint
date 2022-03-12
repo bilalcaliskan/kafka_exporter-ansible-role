@@ -1,5 +1,4 @@
 ---
-
 extends: default
 
 rules:
@@ -14,4 +13,3 @@ rules:
 
 ignore: |
   .github/stale.yml
-  .travis.yml

@@ -1,5 +1,4 @@
 ---
-
 - name: Verify play
   hosts: all
   tasks:

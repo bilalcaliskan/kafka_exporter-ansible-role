@@ -1,5 +1,4 @@
 ---
-
 - name: Get service facts
   service_facts:
 

@@ -1,5 +1,4 @@
 ---
-
 - name: force systemd to reread configs
   systemd:
     daemon_reload: true
