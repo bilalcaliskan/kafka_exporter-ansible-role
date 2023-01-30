@@ -1,8 +1,3 @@
 ---
-- name: Include install.yml file conditionally
+- name: Install
   include_tasks: install.yml
-  when: (install_kafka_exporter | bool)
-
-- name: Include uninstall.yml file
-  include_tasks: uninstall.yml
-  when: not (install_kafka_exporter | bool)

@@ -1,15 +1,10 @@
 ---
-install_kafka_exporter: true
-kafka_port: 9092
-kafka_bind_localhost: true
-firewalld_enabled: false
+kafka_brokers: []
 exporter_port: 9308
-version: 1.4.2
-download_url: "https://github.com/danielqsj/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
+version: "2.0.0"
+download_url: "https://github.com/soloradish/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-{{ architecture }}.tar.gz"
 base_dir_path: /opt
-file_path: "{{ base_dir_path }}/kafka_exporter-{{ version }}.linux-amd64.tar.gz"
-folder_path: "{{ base_dir_path }}/kafka_exporter-{{ version }}.linux-amd64"
+file_path: "{{ base_dir_path }}/kafka_exporter-{{ version }}.linux-{{ architecture }}.tar.gz"
+folder_path: "{{ base_dir_path }}/kafka_exporter-{{ version }}.linux-{{ architecture }}"
 user: kafka-exporter
 group: kafka-exporter
-required_packages:
-  - firewalld

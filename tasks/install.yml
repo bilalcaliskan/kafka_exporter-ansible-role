@@ -6,34 +6,31 @@
   group:
     name: "{{ group }}"
     state: present
+  tags:
+    - kafka_exporter_install
 
 - name: Ensure {{ user }} user exists
   user:
     name: "{{ user }}"
     shell: /sbin/nologin
     group: "{{ user }}"
+  tags:
+    - kafka_exporter_install
 
 - name: Ensure {{ user }} user exists
   user:
     name: "{{ user }}"
     shell: /sbin/nologin
     group: "{{ user }}"
-
-- name: Update cache on Debian based hosts
-  apt:
-    update_cache: true
-  when: ansible_facts['os_family'] == "Debian"
-  changed_when: false
-
-- name: Ensure required packages are installed
-  package:
-    name: "{{ required_packages }}"
-    state: present
+  tags:
+    - kafka_exporter_install
 
 - name: Check if tar file exists
   stat:
     path: "{{ file_path }}"
   register: file_stat_result
+  tags:
+    - kafka_exporter_install
 
 - name: Download tar.gz file
   get_url:
@@ -43,11 +40,15 @@
     group: "{{ group }}"
     mode: 0640
   when: not file_stat_result.stat.exists
+  tags:
+    - kafka_exporter_install
 
 - name: Check if directory exists
   stat:
     path: "{{ folder_path }}"
   register: directory_stat_result
+  tags:
+    - kafka_exporter_install
 
 - name: Extract tar.gz file
   unarchive:
@@ -56,6 +57,8 @@
     owner: "{{ user }}"
     group: "{{ group }}"
     remote_src: true
+  tags:
+    - kafka_exporter_install
 
 - name: Create a symlink of kafka_exporter binary
   file:
@@ -64,6 +67,8 @@
     owner: "{{ user }}"
     group: "{{ group }}"
     state: link
+  tags:
+    - kafka_exporter_install
 
 - name: Transfer template files to the remote host
   template:
@@ -72,22 +77,7 @@
     owner: root
     group: root
     mode: 0640
+  tags:
+    - kafka_exporter_configure
   notify:
     - start and enable kafka-exporter
-
-- name: Firewalld related block
-  block:
-    - name: Ensure firewalld is started and enabled
-      service:
-        name: firewalld
-        state: started
-        enabled: true
-      changed_when: false
-
-    - name: Manage firewalld configuration
-      firewalld:
-        port: "{{ exporter_port }}/tcp"
-        permanent: true
-        state: enabled
-        immediate: true
-  when: (firewalld_enabled | bool)
