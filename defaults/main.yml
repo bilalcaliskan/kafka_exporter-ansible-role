@@ -1,6 +1,7 @@
 ---
 kafka_brokers: []
 exporter_port: 9308
+systemd_service_name: kafka-exporter
 version: "2.0.0"
 download_url: "https://github.com/soloradish/kafka_exporter/releases/download/v{{ version }}/kafka_exporter-{{ version }}.linux-{{ architecture }}.tar.gz"
 base_dir_path: /opt
